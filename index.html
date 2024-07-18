@@ -289,7 +289,8 @@
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var warningBanner = document.querySelector("#unity-warning");
-
+    var header = document.querySelector("#header");
+  
     function unityShowBanner(msg, type) {
       function updateBannerVisibility() {
         warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -307,7 +308,7 @@
       }
       updateBannerVisibility();
     }
-
+  
     var buildUrl = "Build";
     var loaderUrl = buildUrl + "/BaskingBall.loader.js";
     var config = {
@@ -320,27 +321,24 @@
       productVersion: "1.0",
       showBanner: unityShowBanner,
     };
-
+  
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-      var header = document.querySelector("#header");
-      var warning_fullscreen = document.querySelector("#fullscreen-warning");
-
-      header.style.display = none;
-      warning_fullscreen.style.display = none;
-      
       var meta = document.createElement('meta');
       meta.name = 'viewport';
       meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
       document.getElementsByTagName('head')[0].appendChild(meta);
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
+      if (header) {
+        header.style.display = 'none';
+      }
     } else {
       canvas.style.width = "960px";
       canvas.style.height = "600px";
     }
-
+  
     loadingBar.style.display = "block";
-
+  
     var script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
@@ -355,34 +353,10 @@
         alert(message);
       });
     };
-
+  
     document.body.appendChild(script);
-
-    function switchLanguage() {
-      var warning = document.getElementById('fullscreen-warning');
-      var controls = document.getElementById('commands');
-      var download_text = document.getElementById('download-text');
-      var download_button = document.getElementsByClassName("download-button");
-      var button = document.getElementById('language-switcher');
-      if (warning.innerHTML === 'It is recommended to play this demo on <strong>FULLSCREEN</strong>') {
-        warning.innerHTML = 'Il est recommandé de jouer à cette démo en <strong>PLEIN ÉCRAN</strong>';
-        controls.innerHTML = "<strong>CONTRÔLES:</strong><br>Appuyer sur <i class=\"fas fa-arrow-up\"></i> ou <strong>ESPACE</strong> sur " +
-      "ordinateur, ou bien " +
-      "toucher l'écran sur mobile pour décider de l'angle." +
-      "<br>Appuyer une deuxième fois pour choisir la puissance du tir.";
-      download_text.innerHTML = "<i>Téléchargement gratuit pour Windows!</i>";
-      download_button.innerHTML = "Télécharger";
-      } else {
-        warning.innerHTML = 'It is recommended to play this demo on <strong>FULLSCREEN</strong>';
-        controls.innerHTML = "<strong>CONTROLS:</strong><br>Press <i class=\"fas fa-arrow-up\"></i> or <strong>SPACE</strong> on" +
-      "computer, or simply" +
-      "tap on mobile to lock" +
-      "in your angle. <br>Press a second time to select your shot strength and shoot.";
-      download_text.innerHTML = "<i>Download the free version for Windows!</i>";
-      download_button.innerHTML = "Download";
-      }
-    }
   </script>
+  
 </body>
 
 </html>
