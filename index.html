@@ -290,6 +290,7 @@
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var warningBanner = document.querySelector("#unity-warning");
     var header = document.querySelector("#header");
+    var fswarning = document.querySelector("#fullscreen-warning");
   
     function unityShowBanner(msg, type) {
       function updateBannerVisibility() {
@@ -332,6 +333,9 @@
       if (header) {
         header.style.display = 'none';
       }
+      if (fswarning) {
+        fswarning.style.display = 'none';
+      }
     } else {
       canvas.style.width = "960px";
       canvas.style.height = "600px";
@@ -355,8 +359,7 @@
     };
   
     document.body.appendChild(script);
-  </script>
-  
+  </script>  
 </body>
 
 </html>
