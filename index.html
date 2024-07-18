@@ -1,122 +1,382 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Basking Ball</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | Basking Ball</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-***" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Karla', sans-serif;
+      background-color: lightgrey;
+      min-height: 100vh;
+    }
+
+    #header {
+      width: 100%;
+      padding: 10px 0px;
+      /* Added padding */
+      text-align: center;
+      font-size: 3em;
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    #header-pale {
+      color: grey;
+    }
+
+    .header-links {
+      font-size: 0.6em;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.9;
+    }
+
+    .header-links p{
+      opacity: 0.5;
+    }
+
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      padding: 0 5px;
+      position: relative;
+    }
+
+    #email {
+      opacity: 1;
+    }
+
+    .header-links a:hover {
+      text-shadow: 0 0 5px white;
+    }
+
+    #fullscreen-warning {
+      margin-top: 4em;
+      font-size: 1.2em;
+      color: grey;
+    }
+
+    #unity-container {
+      width: 960px;
+      height: 600px;
+      margin-top: 10em;
+    }
+
+    /* Button FR-EN Animation*/
+    .switch {
+      position: relative;
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    .switch>span {
+      position: absolute;
+      top: 14px;
+      pointer-events: none;
+      font-family: 'Karla', sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+      width: 50%;
+      text-align: center;
+    }
+
+    input.check-toggle-round-flat:checked~.off {
+      color: #8cff66;
+    }
+
+    input.check-toggle-round-flat:checked~.on {
+      color: grey;
+    }
+
+    .switch>span.on {
+      left: 0;
+      padding-left: 2px;
+      color: #8cff66;
+    }
+
+    .switch>span.off {
+      right: 0;
+      padding-right: 4px;
+      color: grey;
+    }
+
+    .check-toggle {
+      position: absolute;
+      margin-left: -9999px;
+      visibility: hidden;
+    }
+
+    .check-toggle+label {
+      display: block;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input.check-toggle-round-flat+label {
+      padding: 2px;
+      width: 97px;
+      height: 35px;
+      background-color: grey;
+      -webkit-border-radius: 60px;
+      -moz-border-radius: 60px;
+      -ms-border-radius: 60px;
+      -o-border-radius: 60px;
+      border-radius: 60px;
+    }
+
+    input.check-toggle-round-flat+label:before,
+    input.check-toggle-round-flat+label:after {
+      display: block;
+      position: absolute;
+      content: "";
+    }
+
+    input.check-toggle-round-flat+label:before {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      right: 2px;
+      background-color: lightgrey;
+
+      -moz-border-radius: 60px;
+      -ms-border-radius: 60px;
+      -o-border-radius: 60px;
+      border-radius: 60px;
+    }
+
+    input.check-toggle-round-flat+label:after {
+      top: 4px;
+      left: 4px;
+      bottom: 4px;
+      width: 48px;
+      background-color: grey;
+      -webkit-border-radius: 52px;
+      -moz-border-radius: 52px;
+      -ms-border-radius: 52px;
+      -o-border-radius: 52px;
+      border-radius: 52px;
+      -webkit-transition: margin 0.2s;
+      -moz-transition: margin 0.2s;
+      -o-transition: margin 0.2s;
+      transition: margin 0.2s;
+    }
+
+    input.check-toggle-round-flat:checked+label {}
+
+    input.check-toggle-round-flat:checked+label:after {
+      margin-left: 44px;
+    }
+
+    #commands {
+      text-align: left;
+      padding: 1em 0px;
+      font-size: 20px;
+    }
+
+    #download-windows button {
+      padding: 26px;
+      font-family: 'Karla', sans-serif;
+      font-size: 26px;
+      border-radius: 20px;
+    }
+
+    #download-windows {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 7em;
+    }
+
+    #download-windows img {
+      height: 40px;
+      width: auto;
+      padding: 20px;
+    }
+
+    #download-text{
+      padding: 50px 0px 0px;
+    }
+
+    #button-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <div style="padding: 10px 20px">Gsabb <span id="header-pale">| Basking Ball</span></div>
+    <div class="header-links">
+      <a href="https://github.com/Gsabb">Github</a>
+      <p>|</p>
+      <a href="https://www.linkedin.com/in/guillaume-sabourin-bba09b318/">LinkedIn</a>
+      <p>|</p>
+      <a id="email" href="mailto:guillaumeyt666@gmail.com">Hire me!</a>
+    </div>
+    <div id="button-item">
+      <center style="padding: 10px 20px">
+        <div class="switch">
+          <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
+            onclick="switchLanguage()">
+          <label for="language-toggle"></label>
+          <span class="on">EN</span>
+          <span class="off">FR</span>
         </div>
-      </div>
-      <div id="unity-warning"> </div>
-      <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
-        <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Basking Ball</div>
+      </center>
+    </div>
+  </div>
+  <div id="fullscreen-warning">It is recommended to play this demo on <strong>FULLSCREEN</strong></div>
+  <div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+      <div id="unity-logo"></div>
+      <div id="unity-progress-bar-empty">
+        <div id="unity-progress-bar-full"></div>
       </div>
     </div>
-    <script>
+    <div id="unity-warning"> </div>
+    <div id="unity-footer">
+      <div id="unity-fullscreen-button"></div>
+      <div id="unity-build-title">Basking Ball</div>
+    </div>
+    <div id="commands"><strong>CONTROLS:</strong><br>Press <i class="fas fa-arrow-up"></i> or <strong>SPACE</strong> on
+      computer, or simply
+      tap on mobile to lock
+      in your angle. <br>Press a second time to select your shot strength and shoot.
+    </div>
+    <p id="download-text"><i>Download the free version for Windows!</i></p>
+    <div id="download-windows">
+      <form method="get" action="WindowsBuild.zip">
+        <button type="submit" class="download-button">Download</button>
+      </form>
+      <img src="windowslogo.png">
+    </div>
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
-      var warningBanner = document.querySelector("#unity-warning");
+  </div>
+  <script>
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingBar = document.querySelector("#unity-loading-bar");
+    var progressBarFull = document.querySelector("#unity-progress-bar-full");
+    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    var warningBanner = document.querySelector("#unity-warning");
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
+    function unityShowBanner(msg, type) {
+      function updateBannerVisibility() {
+        warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
       }
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+      if (type == 'error') div.style = 'background: red; padding: 10px;';
+      else {
+        if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+        setTimeout(function () {
+          warningBanner.removeChild(div);
+          updateBannerVisibility();
+        }, 5000);
+      }
+      updateBannerVisibility();
+    }
 
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/BaskingBall.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/BaskingBall.data",
-        frameworkUrl: buildUrl + "/BaskingBall.framework.js",
-        codeUrl: buildUrl + "/BaskingBall.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Gsabb",
-        productName: "Basking Ball",
-        productVersion: "1.0",
-        showBanner: unityShowBanner,
-      };
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/BaskingBall.loader.js";
+    var config = {
+      dataUrl: buildUrl + "/BaskingBall.data",
+      frameworkUrl: buildUrl + "/BaskingBall.framework.js",
+      codeUrl: buildUrl + "/BaskingBall.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "Gsabb",
+      productName: "Basking Ball",
+      productVersion: "1.0",
+      showBanner: unityShowBanner,
+    };
 
-      // By default, Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+      document.getElementsByTagName('head')[0].appendChild(meta);
+      container.className = "unity-mobile";
+      canvas.className = "unity-mobile";
+    } else {
+      canvas.style.width = "960px";
+      canvas.style.height = "600px";
+    }
 
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
+    loadingBar.style.display = "block";
 
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-        container.className = "unity-mobile";
-        canvas.className = "unity-mobile";
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, (progress) => {
+        progressBarFull.style.width = 100 * progress + "%";
+      }).then((unityInstance) => {
+        loadingBar.style.display = "none";
+        fullscreenButton.onclick = () => {
+          unityInstance.SetFullscreen(1);
+        };
+      }).catch((message) => {
+        alert(message);
+      });
+    };
 
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
+    document.body.appendChild(script);
 
-
+    function switchLanguage() {
+      var warning = document.getElementById('fullscreen-warning');
+      var controls = document.getElementById('commands');
+      var download_text = document.getElementById('download-text');
+      var download_button = document.getElementsByClassName("download-button");
+      var button = document.getElementById('language-switcher');
+      if (warning.innerHTML === 'It is recommended to play this demo on <strong>FULLSCREEN</strong>') {
+        warning.innerHTML = 'Il est recommandé de jouer à cette démo en <strong>PLEIN ÉCRAN</strong>';
+        controls.innerHTML = "<strong>CONTRÔLES:</strong><br>Appuyer sur <i class=\"fas fa-arrow-up\"></i> ou <strong>ESPACE</strong> sur " +
+      "ordinateur, ou bien " +
+      "toucher l'écran sur mobile pour décider de l'angle." +
+      "<br>Appuyer une deuxième fois pour choisir la puissance du tir.";
+      download_text.innerHTML = "<i>Téléchargement gratuit pour Windows!</i>";
+      download_button.innerHTML = "Télécharger";
       } else {
-        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
-
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        warning.innerHTML = 'It is recommended to play this demo on <strong>FULLSCREEN</strong>';
+        controls.innerHTML = "<strong>CONTROLS:</strong><br>Press <i class=\"fas fa-arrow-up\"></i> or <strong>SPACE</strong> on" +
+      "computer, or simply" +
+      "tap on mobile to lock" +
+      "in your angle. <br>Press a second time to select your shot strength and shoot.";
+      download_text.innerHTML = "<i>Download the free version for Windows!</i>";
+      download_button.innerHTML = "Download";
       }
+    }
+  </script>
+</body>
 
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
-                loadingBar.style.display = "none";
-                fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
-                };
-              }).catch((message) => {
-                alert(message);
-              });
-            };
-
-      document.body.appendChild(script);
-
-    </script>
-  </body>
 </html>
