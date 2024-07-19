@@ -230,6 +230,41 @@
       justify-content: center;
     }
   </style>
+  <script>
+    function switchLanguage() {
+      console.log(" FONCTION APPELÉE ");
+      var warning = document.getElementById('fullscreen-warning');
+      var controls = document.getElementById('commands');
+      var download_text = document.getElementById('download-text');
+      var download_button = document.getElementsByClassName("download-button");
+      var button = document.getElementById('language-switcher');
+      var email = document.getElementById('email');
+      if (warning.innerHTML === 'It is recommended to play this demo on <strong>FULLSCREEN</strong>') {
+        warning.innerHTML = 'Il est recommandé de jouer à cette démo en <strong>PLEIN ÉCRAN</strong>';
+        controls.innerHTML = "<strong>CONTRÔLES:</strong><br>Appuyer sur <i class=\"fas fa-arrow-up\"></i> ou <strong>ESPACE</strong> sur " +
+      "ordinateur, ou bien " +
+      "toucher l'écran sur mobile pour décider de l'angle." +
+      "<br>Appuyer une deuxième fois pour choisir la puissance du tir.";
+      download_text.innerHTML = "<i>Téléchargement gratuit pour Windows!</i>";
+      download_button[0].innerHTML= "Télécharger";
+      email.innerHTML = "Recrutez-moi!"
+      } else {
+        warning.innerHTML = 'It is recommended to play this demo on <strong>FULLSCREEN</strong>';
+        controls.innerHTML = "<strong>CONTROLS:</strong><br>Press <i class=\"fas fa-arrow-up\"></i> or <strong>SPACE</strong> on" +
+      "computer, or simply" +
+      "tap on mobile to lock" +
+      "in your angle. <br>Press a second time to select your shot strength and shoot.";
+      download_text.innerHTML = "<i>Download the free version for Windows!</i>";
+      download_button[0].innerHTML = "Download";
+      email.innerHTML = "Hire me!"
+      }
+      if (download_button){
+        console.log("OUI");
+      } else {
+        console.log("NON");
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -361,40 +396,6 @@
         alert(message);
       });
     };
- 
-    function switchLanguage() {
-      console.log(" FONCTION APPELÉE ");
-      var warning = document.getElementById('fullscreen-warning');
-      var controls = document.getElementById('commands');
-      var download_text = document.getElementById('download-text');
-      var download_button = document.getElementsByClassName("download-button");
-      var button = document.getElementById('language-switcher');
-      var email = document.getElementById('email');
-      if (warning.innerHTML === 'It is recommended to play this demo on <strong>FULLSCREEN</strong>') {
-        warning.innerHTML = 'Il est recommandé de jouer à cette démo en <strong>PLEIN ÉCRAN</strong>';
-        controls.innerHTML = "<strong>CONTRÔLES:</strong><br>Appuyer sur <i class=\"fas fa-arrow-up\"></i> ou <strong>ESPACE</strong> sur " +
-      "ordinateur, ou bien " +
-      "toucher l'écran sur mobile pour décider de l'angle." +
-      "<br>Appuyer une deuxième fois pour choisir la puissance du tir.";
-      download_text.innerHTML = "<i>Téléchargement gratuit pour Windows!</i>";
-      download_button[0].innerHTML= "Télécharger";
-      email.innerHTML = "Recrutez-moi!"
-      } else {
-        warning.innerHTML = 'It is recommended to play this demo on <strong>FULLSCREEN</strong>';
-        controls.innerHTML = "<strong>CONTROLS:</strong><br>Press <i class=\"fas fa-arrow-up\"></i> or <strong>SPACE</strong> on" +
-      "computer, or simply" +
-      "tap on mobile to lock" +
-      "in your angle. <br>Press a second time to select your shot strength and shoot.";
-      download_text.innerHTML = "<i>Download the free version for Windows!</i>";
-      download_button[0].innerHTML = "Download";
-      email.innerHTML = "Hire me!"
-      }
-      if (download_button){
-        console.log("OUI");
-      } else {
-        console.log("NON");
-      }
-    }
     
     document.body.appendChild(script);
   </script>  
