@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Unity WebGL Player | Basking Ball</title>
+  <title>GSABB - Projects</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -36,6 +36,7 @@
       display: flex;
       justify-content: space-between;
       position: relative;
+      align-items:center;
     }
 
     #header-pale {
@@ -71,7 +72,7 @@
     }
 
     #fullscreen-warning {
-      margin-top: 4em;
+      margin-top: 30px;
       font-size: 1.2em;
       color: grey;
     }
@@ -232,13 +233,13 @@
   </style>
   <script>
     function switchLanguage() {
-      console.log(" FONCTION APPELÉE ");
       var warning = document.getElementById('fullscreen-warning');
       var controls = document.getElementById('commands');
       var download_text = document.getElementById('download-text');
       var download_button = document.getElementsByClassName("download-button");
       var button = document.getElementById('language-switcher');
       var email = document.getElementById('email');
+      var seealso = document.getElementById('gamename');
       if (warning.innerHTML === 'It is recommended to play this demo on <strong>FULLSCREEN</strong>') {
         warning.innerHTML = 'Il est recommandé de jouer à cette démo en <strong>PLEIN ÉCRAN</strong>';
         controls.innerHTML = "<strong>CONTRÔLES:</strong><br>Appuyer sur <i class=\"fas fa-arrow-up\"></i> ou <strong>ESPACE</strong> sur " +
@@ -247,7 +248,8 @@
       "<br>Appuyer une deuxième fois pour choisir la puissance du tir.";
       download_text.innerHTML = "<i>Téléchargement gratuit pour Windows!</i>";
       download_button[0].innerHTML= "Télécharger";
-      email.innerHTML = "Recrutez-moi!"
+      email.innerHTML = "Recrutez-moi!";
+      seealso.innerHTML = `Voyez également: <a style="font-style: normal;" href="./page2.html">2D TOPDOWN RPG</a>`;
       } else {
         warning.innerHTML = 'It is recommended to play this demo on <strong>FULLSCREEN</strong>';
         controls.innerHTML = "<strong>CONTROLS:</strong><br>Press <i class=\"fas fa-arrow-up\"></i> or <strong>SPACE</strong> on" +
@@ -256,12 +258,8 @@
       "in your angle. <br>Press a second time to select your shot strength and shoot.";
       download_text.innerHTML = "<i>Download the free version for Windows!</i>";
       download_button[0].innerHTML = "Download";
-      email.innerHTML = "Hire me!"
-      }
-      if (download_button){
-        console.log("OUI");
-      } else {
-        console.log("NON");
+      email.innerHTML = "Hire me!";
+      seealso.innerHTML = `See also: <a style="font-style: normal;" href="./page2.html">2D TOPDOWN RPG</a>`;
       }
     }
   </script>
@@ -290,6 +288,9 @@
     </div>
   </div>
   <div id="fullscreen-warning">It is recommended to play this demo on <strong>FULLSCREEN</strong></div>
+  <div>
+    <h3 style="font-style: italic;" id="gamename">See also: <a style="font-style: normal;" href="./page2.html">2D TOPDOWN RPG</a></h3>
+  </div>
   <div id="unity-container" class="unity-desktop">
     <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
     <div id="unity-loading-bar">

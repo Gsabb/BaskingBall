@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>GSABB - Projects</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    integrity="sha512-***" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Karla', sans-serif;
+      background-color: lightgrey;
+      min-height: 100vh;
+    }
+
+    #header {
+      width: 100%;
+      padding: 10px 0px;
+      /* Added padding */
+      text-align: center;
+      font-size: 3em;
+      background-color: #333;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      align-items:center;
+
+    }
+
+    #header-pale {
+      color: grey;
+    }
+
+    .header-links {
+      font-size: 0.6em;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.9;
+    }
+
+    .header-links p{
+      opacity: 0.5;
+    }
+
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      padding: 0 5px;
+      position: relative;
+    }
+
+    #email {
+      opacity: 1;
+    }
+
+    .header-links a:hover {
+      text-shadow: 0 0 5px white;
+    }
+
+    /* Button FR-EN Animation*/
+    .switch {
+      position: relative;
+      display: inline-block;
+      margin: 0 5px;
+    }
+
+    .switch>span {
+      position: absolute;
+      top: 14px;
+      pointer-events: none;
+      font-family: 'Karla', sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+      width: 50%;
+      text-align: center;
+    }
+
+    input.check-toggle-round-flat:checked~.off {
+      color: #8cff66;
+    }
+
+    input.check-toggle-round-flat:checked~.on {
+      color: grey;
+    }
+
+    .switch>span.on {
+      left: 0;
+      padding-left: 2px;
+      color: #8cff66;
+    }
+
+    .switch>span.off {
+      right: 0;
+      padding-right: 4px;
+      color: grey;
+    }
+
+    .check-toggle {
+      position: absolute;
+      margin-left: -9999px;
+      visibility: hidden;
+    }
+
+    .check-toggle+label {
+      display: block;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input.check-toggle-round-flat+label {
+      padding: 2px;
+      width: 97px;
+      height: 35px;
+      background-color: grey;
+      -webkit-border-radius: 60px;
+      -moz-border-radius: 60px;
+      -ms-border-radius: 60px;
+      -o-border-radius: 60px;
+      border-radius: 60px;
+    }
+
+    input.check-toggle-round-flat+label:before,
+    input.check-toggle-round-flat+label:after {
+      display: block;
+      position: absolute;
+      content: "";
+    }
+
+    input.check-toggle-round-flat+label:before {
+      top: 2px;
+      left: 2px;
+      bottom: 2px;
+      right: 2px;
+      background-color: lightgrey;
+
+      -moz-border-radius: 60px;
+      -ms-border-radius: 60px;
+      -o-border-radius: 60px;
+      border-radius: 60px;
+    }
+
+    input.check-toggle-round-flat+label:after {
+      top: 4px;
+      left: 4px;
+      bottom: 4px;
+      width: 48px;
+      background-color: grey;
+      -webkit-border-radius: 52px;
+      -moz-border-radius: 52px;
+      -ms-border-radius: 52px;
+      -o-border-radius: 52px;
+      border-radius: 52px;
+      -webkit-transition: margin 0.2s;
+      -moz-transition: margin 0.2s;
+      -o-transition: margin 0.2s;
+      transition: margin 0.2s;
+    }
+
+    input.check-toggle-round-flat:checked+label:after {
+      margin-left: 44px;
+    }
+
+    #button-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-container {
+      position: relative;
+      width: 100%;
+      max-width: 700px; /* Adjust the container width */
+      margin: 0 auto;
+      margin: 200px auto 100px auto;
+    }
+
+    video {
+      width: 100%;
+      position: relative;
+      z-index: 3; /* Ensure the video is above most elements */
+    }
+
+    .img-container img {
+      position: absolute;
+      z-index: 2; /* Ensure images appear above the video */
+      width: 500px; /* Adjust image size */
+    }
+
+    /* Position the first image in the top-left, slightly overlapping the video */
+    .img-container img:first-child {
+      top: -150px; /* Adjust the overlap (negative values push it into the video) */
+      right: -350px; /* Adjust the overlap */
+    }
+
+    /* Position the second image in the top-right, slightly overlapping the video */
+    .img-container img:last-child {
+      top: -150px; /* Adjust the overlap */
+      left: -300px; /* Adjust the overlap */
+    }
+
+    .description{
+      max-width: 80%;
+      align-self:center;
+      margin-left: 10%;
+      margin-bottom: 100px;
+    }
+
+  </style>
+  <script>
+    function switchLanguage() {
+      var email = document.getElementById('email');
+      var seealso = document.getElementById('gamename');
+      var desc = document.getElementById('desc');
+      var thisproject = document.getElementById('thisproject');
+
+      if (seealso.innerHTML === `See also: <a style="font-style: normal;" href="./index.html">BASKING BALL</a>`) {
+        email.innerHTML = "Recrutez-moi!";
+        seealso.innerHTML = `Voyez également: <a style="font-style: normal;" href="./index.html">BASKING BALL</a>`;
+        desc.innerHTML = `Un prototype de RPG en 2D présentant des mécaniques de gameplay principales telles que le déplacement du personnage, la collecte d’objets et les interactions avec des PNJ. Développé en utilisant notamment Unity et C#, ce projet met en avant ma capacité à concevoir et implémenter des fonctionnalités de jeu, créer des visuels attrayants et résoudre des défis techniques. Actuellement en phase de développement précoce, avec des plans pour étendre l’histoire et le gameplay.`
+        thisproject.innerHTML = "Ce Projet:"
+      } else {
+        email.innerHTML = "Hire me!";
+        seealso.innerHTML = `See also: <a style="font-style: normal;" href="./index.html">BASKING BALL</a>`;
+        desc.innerHTML = `A 2D RPG prototype showcasing core gameplay mechanics such as character movement, item collection, and NPC interactions. Built using Unity and C#, this project highlights my ability to design and implement game features, create engaging visuals, and solve technical challenges. Currently in early development, with plans to expand the story and gameplay.`
+        thisproject.innerHTML = "This Project:"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="header">
+    <div style="padding: 10px 20px">Gsabb <span id="header-pale">| Basking Ball</span></div>
+    <div class="header-links">
+      <a href="https://github.com/Gsabb">Github</a>
+      <p>|</p>
+      <a href="https://www.linkedin.com/in/guillaume-sabourin-bba09b318/">LinkedIn</a>
+      <p>|</p>
+      <a id="email" href="mailto:guillaumeyt666@gmail.com">Hire me!</a>
+    </div>
+    <div id="button-item">
+      <center style="padding: 10px 20px">
+        <div class="switch">
+          <input id="language-toggle" class="check-toggle check-toggle-round-flat" type="checkbox"
+            onclick="switchLanguage()">
+          <label for="language-toggle"></label>
+          <span class="on">EN</span>
+          <span class="off">FR</span>
+        </div>
+      </center>
+    </div>
+  </div>
+  <div>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <h1 style="padding-top: 10px;">2D TOP DOWN RPG</h1>
+      <h3 style="font-style: italic; margin-top: 0px;" id="gamename">See also: <a style="font-style: normal;" href="./index.html">BASKING BALL</a></h3>
+    </div>
+    <div class="img-container">
+        <img src="./images/editor.png">
+        <video autoplay loop muted playsinline>
+          <source src="./images/rpgvid.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <img src="./images/codeimg.png">
+    </div>
+    <div class="description">
+      <h2 id="thisproject">This project:</h2>
+      <p id="desc">A 2D RPG prototype showcasing core gameplay mechanics such as character movement, item collection, and NPC interactions. Built using Unity and C#, this project highlights my ability to design and implement game features, create engaging visuals, and solve technical challenges. Currently in early development, with plans to expand the story and gameplay.</p>
+    </div>
+  </div>
+</body>
+
+</html>
